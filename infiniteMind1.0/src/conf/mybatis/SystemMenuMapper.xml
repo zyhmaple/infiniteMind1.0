@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="conf.mybatis.SystemMenuMapper" >
+
+	<resultMap id="BaseResultMap" type="com.im.success.system.model.SystemMenuVO" >
+    <id column="menu_id" property="menu_ID" jdbcType="VARCHAR" />
+    <result column="menu_name" property="menu_Name" jdbcType="VARCHAR" />
+    <result column="menu_pid" property="menu_PID" jdbcType="VARCHAR" />
+    <result column="menu_action" property="menu_Action" jdbcType="VARCHAR" />
+    <result column="menu_sequence" property="menu_Sequence" jdbcType="TINYINT" />
+  	</resultMap>
+  	
+  	<resultMap id="QueryResultMap" type="com.im.success.system.model.SystemMenuVO" >
+
+    <id column="menu_id" property="menu_ID" jdbcType="VARCHAR" />
+    <result column="menu_name" property="menu_Name" jdbcType="VARCHAR" />
+    <result column="menu_pid" property="menu_PID" jdbcType="VARCHAR" />
+    <result column="menu_action" property="menu_Action" jdbcType="VARCHAR" />
+    <result column="menu_sequence" property="menu_Sequence" jdbcType="TINYINT" />
+	</resultMap>
+	  
+	<select id="getSystemMenuList" resultMap="QueryResultMap" parameterType="com.im.success.system.model.SystemMenuVO" >
+  		SELECT * FROM im_sys_menu order by menu_pid,menu_sequence 
+   	</select> 
+   
+   <insert id="insert"></insert>
+   
+   <update id="update"></update>
+   
+   <delete id="delete"></delete>
+   
+</mapper>

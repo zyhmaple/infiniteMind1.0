@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="advertTarget" extends="default" namespace="/adt">
+	 	<action name="*" class="com.im.success.adverttarget.action.AdvertTargetAction" method="{1}AdvertTarget" >
+	  		<result name="success">/WEB-INF/jsp/adt/advertTarget.jsp</result>
+	  		<result name="error">/WEB-INF/jsp/adt/advertTargetList.jsp</result>
+      	</action> 
+      	
+      	<action name="getAdtList" class="com.im.success.adverttarget.action.AdvertTargetAction" method="getAdtList" >
+      <result type="json" >
+      		<param name="ignoreHierarchy" >false</param>
+      		<param name="includeProperties" >jsonTree</param>
+	     </result>
+      	</action> 
+	</package>
+</struts>

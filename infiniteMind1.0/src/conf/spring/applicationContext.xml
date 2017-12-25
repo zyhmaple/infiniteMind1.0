@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xsi:schemaLocation="
+	     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	     http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+	     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd	    
+	     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+    <context:component-scan base-package="com.im;com.dm" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>	
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+	</context:component-scan>
+	 <bean id="placeholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>classpath:dsdb.properties</value>
+        </property>
+    </bean>
+    
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<!-- Connection Info -->
+		<property name="driverClassName" value="${datasource.driverClassName}" />
+		<property name="url" value="${datasource.url}" />
+		<property name="username" value="${datasource.username}" />
+		<property name="password" value="${datasource.password}" />
+		<property name="maxActive" value="50" />
+		<property name="maxIdle" value="10" />
+		<property name="minIdle" value="0" />
+		<property name="defaultAutoCommit" value="false" />
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<property name="minEvictableIdleTimeMillis" value="600000" />
+	</bean>
+
+<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+<property name="dataSource" ref="dataSource"/>
+</bean>
+
+
+<tx:annotation-driven/>
+	<!-- 定义SqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+		<property name="mapperLocations" value="classpath*:conf/mybatis/*.xml"/>
+		<property name="typeAliasesPackage" value="com.mybatis.model"/>
+	</bean>
+	
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">  
+       <constructor-arg index="0" ref="sqlSessionFactory"/>  
+   </bean> 
+  
+	<!-- <bean id="advertOwnerTask" class="com.dm.adrich.fm.task.AdvertOwnerTask" />   -->
+	
+	<!-- 定义调用对象和调用对象的方法 -->
+	<!-- <bean id="advertOwnerTaskJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		调用的类
+		<property name="targetObject" ref="advertOwnerTask" />
+		调用类中的方法
+		<property name="targetMethod" value="updateState" />
+		是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程
+		<property name="concurrent" value="false"/>
+	</bean>
+	
+
+	quartz-2.x的配置
+	 定义触发时间
+	<bean id="advertOwnerTaskInitTimerTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="advertOwnerTaskJobDetail" />
+		</property>
+		<property name="cronExpression">
+			<value>0 0 1 * * ?</value>
+			<value>0 0/2 * * * ?</value>
+		</property>
+	</bean>
+  
+    总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序 
+	如果lazy-init='true',则需要实例化该bean才能执行调度程序
+	<bean name="startQuertz" lazy-init="false" autowire="no"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="advertOwnerTaskInitTimerTrigger" />
+			</list>
+		</property>
+		<property name="autoStartup" value="true"/> 
+	</bean>
+	<bean id="giveMoneyImp"  class="com.dm.adrich.fm.finance.activity.RechargeMoney">
+     <property name="giveRatio" value="0.5"></property>
+     <property name="endDateStr" value="2017-6-1"></property>
+     <property name="limitMoney" value="1000"></property>
+   </bean>
+   <bean id="realFinanceSubject"  class="com.dm.adrich.fm.finance.business.RealFinanceSubject">
+   </bean>
+   <bean id="financeProxy"  class="com.dm.adrich.fm.finance.business.FinanceProxy">
+     <property name="subject" ref="realFinanceSubject"></property>
+   </bean> -->
+</beans>

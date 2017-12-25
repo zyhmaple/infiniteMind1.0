@@ -1,0 +1,14 @@
+eclipse.preferences.version=1
+encoding//WebRoot/WEB-INF/jsp/ado/advertOrder.jsp=UTF-8
+encoding//WebRoot/WEB-INF/jsp/common/LeftSideMenu.jsp=UTF-8
+encoding//src/com/im/success/advertorder/form/AdvertOrderForm.java=UTF-8
+encoding//src/com/im/success/advertorder/model/AdvertOrderMPExtendVO.java=UTF-8
+encoding//src/com/im/success/advertorder/model/AdvertOrderOTTExtendVO.java=UTF-8
+encoding//src/com/im/success/advertorder/model/AdvertOrderPCExtendVO.java=UTF-8
+encoding//src/com/im/success/advertorder/model/AdvertOrderSearchVO.java=UTF-8
+encoding//src/com/im/success/advertorder/model/AdvertOrderVO.java=UTF-8
+encoding//src/com/im/success/advertplan/model/AdvertPlanVO.java=UTF-8
+encoding//src/com/im/success/adverttarget/model/AdvertTargetMappingVO.java=UTF-8
+encoding//src/com/im/success/adverttarget/model/AdvertTargetVO.java=UTF-8
+encoding//src/com/im/success/dao/IAdvertOrderDAO.java=UTF-8
+encoding//src/com/im/success/test/AdvertTargetTest.java=UTF-8

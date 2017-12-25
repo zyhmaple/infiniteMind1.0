@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="advertiser" extends="default" namespace="/adr">
+
+      	<action name="queryAll" class="com.im.success.advertiser.action.AdvertiserAction" method="queryAll" >
+      	<result type="json" >
+      		<param name="ignoreHierarchy" >false</param>
+      		<param name="includeProperties" >searchList.*</param>
+	    </result>
+      	</action>
+      	<action name="getAgentOrAdr" class="com.im.success.advertiser.action.AdvertiserAction" method="getAgentOrAdr" >
+      	<result type="json" >
+      		<param name="ignoreHierarchy" >false</param>
+      		<param name="includeProperties" >agentDropListMap.*,advertDropListMap.*</param>
+	    </result>
+      	</action>  
+      	<action name="*" class="com.im.success.advertiser.action.AdvertiserAction" method="{1}Adr" >
+	  		<result name="success">/WEB-INF/jsp/adr/advertiser.jsp</result>
+	  		<result name="error">/WEB-INF/jsp/adt/advertTargetList.jsp</result>
+      	</action> 
+	</package>
+</struts>

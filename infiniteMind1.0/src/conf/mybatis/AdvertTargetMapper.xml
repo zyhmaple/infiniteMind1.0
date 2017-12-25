@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="conf.mybatis.AdvertTargetMapper" >
+  <resultMap id="BaseResultMap" type="com.im.success.adverttarget.model.AdvertTargetVO" >
+
+    <id column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="order_name" property="orderName" jdbcType="VARCHAR" />
+    <result column="industry_crowd_relation" property="industryCrowdRelation" jdbcType="VARCHAR" />
+    <result column="re_visitor" property="reVisitor" jdbcType="TINYINT" />
+   
+    
+  </resultMap>
+   <resultMap id="QueryResultMap" type="com.im.success.adverttarget.model.AdvertTargetVO" >
+
+    <id column="Adt_id" property="adt_ID" jdbcType="VARCHAR" />
+    <result column="Adt_Name" property="adt_Name" jdbcType="VARCHAR" />
+    <result column="Adt_CatalogLevel" property="adt_CatalogLevel" jdbcType="TINYINT" />
+    <result column="Adt_Parent_ID" property="adt_Parent_ID" jdbcType="TINYINT" />
+    <result column="Adt_IsMatch" property="adt_IsMatch" jdbcType="TINYINT" />
+    
+  </resultMap>
+  
+  <select id="getAllbyCond" resultMap="QueryResultMap" parameterType="com.im.success.adverttarget.model.AdvertTargetSearchVO" >
+  SELECT adt_id,Adt_CatalogLevel,Adt_Parent_ID,Adt_Name,Adt_IsMatch FROM im_ad_target order by adt_id
+  </select>
+  
+  <insert id="insert" parameterType="com.im.success.adverttarget.model.AdvertTargetVO" >
+
+    insert into im_ad_target (Adt_ID, Adt_CatalogLevel,Adt_Parent_ID,Adt_Name, Adt_IsMatch)
+     
+    values (#{adt_ID,jdbcType=VARCHAR},
+			#{adt_CatalogLevel,jdbcType=VARCHAR}, 
+       		#{adt_Parent_ID,jdbcType=VARCHAR},
+			#{adt_Name,jdbcType=VARCHAR},
+      		#{adt_IsMatch,jdbcType=TINYINT}
+      		)
+  </insert>
+  
+   <update id="update" parameterType="com.im.success.adverttarget.model.AdvertTargetVO" >
+
+	update im_ad_target
+	<set>
+	<if test="adt_Name != null">
+		Adt_Name=#{adt_Name,jdbcType=VARCHAR},
+	</if>
+	<if test="adt_CatalogLevel != null">
+		Adt_CatalogLevel=#{adt_CatalogLevel,jdbcType=VARCHAR},
+	</if>
+	<if test="adt_Parent_ID != null">
+		Adt_Parent_ID=#{adt_Parent_ID,jdbcType=VARCHAR},
+	</if>
+	<if test="adt_IsMatch != null">
+		Adt_IsMatch=#{adt_IsMatch,jdbcType=TINYINT}
+	</if>
+	</set>
+	where Adt_ID = #{adt_ID,jdbcType=VARCHAR}
+
+  </update>
+ </mapper>
