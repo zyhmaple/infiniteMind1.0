@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import com.im.success.adverttarget.model.AdvertTargetRelVO;
+import com.im.success.adverttarget.model.AdvertTargetVO;
+import com.im.success.adverttarget.model.AdvertTargetVO2;
 import com.im.success.entity.IEntityVO;
 import com.im.success.service.IAdvertTargetService;
 import com.zyh.maple.framework.service.BaseService;
@@ -20,10 +23,34 @@ public class AdvertTargetServiceImpl implements IAdvertTargetService{
 	@Override
 	public int insert(IEntityVO adt) throws Exception {
 		
-		if(adt == null)
+		if(adt == null )
 			return 0;
+		if(adt instanceof AdvertTargetVO )
+		 return baseService.insertObject("conf.mybatis.AdvertTargetMapper.insert", adt);
+		else if(adt instanceof AdvertTargetVO2 )
+			 return baseService.insertObject("conf.mybatis.AdvertTargetMapper.insertAdt", adt);
+		else if(adt instanceof AdvertTargetRelVO )
+			 return baseService.insertObject("conf.mybatis.AdvertTargetMapper.insertAdtRel", adt);
+		return 0;
+	}
+	
+	@Override
+	public int inserts(List<Object> adts) throws Exception {
 		
-		return baseService.insertObject("conf.mybatis.AdvertTargetMapper.insert", adt);
+		if(adts == null ||adts.size()==0)
+			return 0;
+		int result = 0;
+		for(Object adt : adts)
+		{
+			if(adt instanceof AdvertTargetVO )
+				result = baseService.insertObject("conf.mybatis.AdvertTargetMapper.insert", adt);
+			else if(adt instanceof AdvertTargetVO2 )
+				result = baseService.insertObject("conf.mybatis.AdvertTargetMapper.insertAdt", adt);
+			else if(adt instanceof AdvertTargetRelVO )
+				result = baseService.insertObject("conf.mybatis.AdvertTargetMapper.insertAdtRel", adt);
+		}
+		
+		return result;
 	}
 
 	@Override

@@ -37,6 +37,22 @@
       		)
   </insert>
   
+    <insert id="insertAdt" parameterType="com.im.success.adverttarget.model.AdvertTargetVO2" >
+
+    insert into im_ad_target1 (Adt_ID, Adt_CatalogLevel,Adt_Name)
+     
+    values (#{adt_ID,jdbcType=VARCHAR},#{adt_CatalogLevel,jdbcType=VARCHAR},#{adt_Name,jdbcType=VARCHAR})
+  </insert>
+      
+   <insert id="insertAdtRel" parameterType="com.im.success.adverttarget.model.AdvertTargetRelVO" >
+
+    insert into im_ad_target_rel (Adt_Parent_ID,Adt_ID)
+     
+     (SELECT `Adt_Parent_ID`,#{adt_ID,jdbcType=VARCHAR} Adt_ID FROM im_ad_target_rel WHERE `Adt_ID` = #{adt_Parent_ID,jdbcType=VARCHAR}) 
+     UNION (SELECT #{adt_ID,jdbcType=VARCHAR},#{adt_ID,jdbcType=VARCHAR})  
+        
+  </insert>
+  
    <update id="update" parameterType="com.im.success.adverttarget.model.AdvertTargetVO" >
 
 	update im_ad_target

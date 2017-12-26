@@ -70,4 +70,11 @@ public class AdvertiserServiceImpl implements IAdvertiserService {
 		return result;
 	}
 
+
+	@Override
+	public int inserts(List<Object> list) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

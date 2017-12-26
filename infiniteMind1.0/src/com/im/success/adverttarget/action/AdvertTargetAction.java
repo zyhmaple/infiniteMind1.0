@@ -2,18 +2,27 @@ package com.im.success.adverttarget.action;
 
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.im.success.adverttarget.form.AdvertTargetForm;
+import com.im.success.adverttarget.model.AdvertTargetRelVO;
 import com.im.success.adverttarget.model.AdvertTargetVO;
+import com.im.success.adverttarget.model.AdvertTargetVO2;
+import com.im.success.entity.IEntityVO;
 import com.im.success.pub.util.ConstantUtil;
 import com.im.success.service.IAdvertTargetService;
 
@@ -22,6 +31,8 @@ import com.im.success.service.IAdvertTargetService;
 public class AdvertTargetAction extends AdvertTargetForm {
 
 	private static final long serialVersionUID = -5233402051618489610L;
+	
+	private final Logger loggor = LoggerFactory.getLogger(AdvertTargetAction.class);
 	
 	@Autowired
 	private IAdvertTargetService adtService;
@@ -43,15 +54,32 @@ public class AdvertTargetAction extends AdvertTargetForm {
 	}
 	
 	/**
+	 * 展示 Adt 面板
+	 * @return
+	 * @throws Exception 
+	 */
+	public String show2AdvertTarget() throws Exception
+	{
+/*		if(this.getExpandTree()!=null)
+			this.setExpandTree(URLDecoder.decode(this.getExpandTree(),"UTF-8"));
+		this.setJsonTree(URLEncoder.encode(getListToJsonTree().toJSONString(),"UTF-8"));
+		if(this.getExpandTree()!=null)
+			this.setExpandTree(URLEncoder.encode(this.getExpandTree(),"UTF-8"));*/
+		return SUCCESS;
+	}
+	
+	/**
 	 * Create Adt
 	 * @return
 	 * @throws Exception
 	 */
+	@Transactional(propagation=Propagation.REQUIRES_NEW,isolation=Isolation.SERIALIZABLE)
 	public String createAdvertTarget() throws Exception{
 		
 		if(!isValidAdt()) return SUCCESS;
 		
 		int result = adtService.insert(formVO());
+		 adtService.inserts(formVO2());
 		
 		
 		return (result==1) ? showAdvertTarget() : ERROR ;
@@ -115,6 +143,40 @@ public class AdvertTargetAction extends AdvertTargetForm {
 		return adt;
 	}
 	
+	/**
+	 * FormVo to AdtVO
+	 * @return
+	 */
+	public List<Object> formVO2()
+	{
+		if(!isValidAdt()) return null;
+		
+		List<Object> list = new ArrayList<Object>();
+		
+		AdvertTargetVO2 adt = new AdvertTargetVO2();
+
+		//目录
+		if(ConstantUtil.Byte_Zero.equals(this.getAdt_Type())){
+			adt.setAdt_CatalogLevel((byte)1);
+		}
+		else{
+			adt.setAdt_CatalogLevel(this.getAdt_Type());
+		}
+
+		adt.setAdt_ID(this.getAdt_ID());//目标属性，手动输入
+		adt.setAdt_Name(this.getAdt_Name());
+		
+		list.add(adt);
+		
+		//新增子节点，自己到自己的关系
+		AdvertTargetRelVO adtRel = new AdvertTargetRelVO();
+		adtRel.setAdt_Parent_ID(this.getAdt_Parent_ID());
+
+		adtRel.setAdt_ID(this.getAdt_ID());
+		
+		list.add(adtRel);
+		return list;
+	}
 	
 	public String produceAdtID(String adt_Name){
 		String result = "";//adt_Name.hashCode();

@@ -118,5 +118,11 @@ public class AdvertOrderServiceImpl implements IAdvertOrderService {
 		return (List<IEntityVO>)baseService.getList("conf.mybatis.conf.mybatis.AdvertTargetMapper.queryList", searchVo);
 	}
 
+	@Override
+	public int inserts(List<Object> vos) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 }

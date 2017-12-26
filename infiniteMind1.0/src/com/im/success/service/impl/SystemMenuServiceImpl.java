@@ -69,4 +69,10 @@ public class SystemMenuServiceImpl implements ISystemMenuService {
 		return null;
 	}
 
+	@Override
+	public int inserts(List<Object> vos) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

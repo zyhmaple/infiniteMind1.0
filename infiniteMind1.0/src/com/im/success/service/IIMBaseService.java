@@ -6,11 +6,13 @@ import com.im.success.entity.IEntityVO;
 
 public interface IIMBaseService {
 	
-	public int insert(IEntityVO adr) throws Exception;
+	public int insert(IEntityVO vo) throws Exception;
 	
-	public int update(IEntityVO adr)throws Exception;
+	public int inserts(List<Object> list) throws Exception;
 	
-	public int delete(IEntityVO adr)throws Exception;
+	public int update(IEntityVO vo)throws Exception;
+	
+	public int delete(IEntityVO vo)throws Exception;
 	
 	public IEntityVO query(IEntityVO searchVo)throws Exception;
 

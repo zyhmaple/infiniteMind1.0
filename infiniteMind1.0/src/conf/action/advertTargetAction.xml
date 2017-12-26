@@ -10,7 +10,21 @@
 	  		<result name="error">/WEB-INF/jsp/adt/advertTargetList.jsp</result>
       	</action> 
       	
-      	<action name="getAdtList" class="com.im.success.adverttarget.action.AdvertTargetAction" method="getAdtList" >
+      	<action name="getAdtList" class="com.im.success.adverttarget.action.AdvertTargetAction" method="getAdtList2" >
+      <result type="json" >
+      		<param name="ignoreHierarchy" >false</param>
+      		<param name="includeProperties" >jsonTree</param>
+	     </result>
+      	</action> 
+	</package>
+	
+	<package name="advertTarget2" extends="default" namespace="/adt2">
+	 	<action name="*" class="com.im.success.adverttarget.action.AdvertTargetAction" method="{1}AdvertTarget" >
+	  		<result name="success">/WEB-INF/jsp/adt/advertTarget2.jsp</result>
+	  		<result name="error">/WEB-INF/jsp/adt/advertTargetList2.jsp</result>
+      	</action> 
+      	
+      	<action name="getAdtList" class="com.im.success.adverttarget.action.AdvertTargetAction" method="getAdtList2" >
       <result type="json" >
       		<param name="ignoreHierarchy" >false</param>
       		<param name="includeProperties" >jsonTree</param>

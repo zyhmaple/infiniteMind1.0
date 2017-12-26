@@ -10,5 +10,6 @@ encoding//src/com/im/success/advertorder/model/AdvertOrderVO.java=UTF-8
 encoding//src/com/im/success/advertplan/model/AdvertPlanVO.java=UTF-8
 encoding//src/com/im/success/adverttarget/model/AdvertTargetMappingVO.java=UTF-8
 encoding//src/com/im/success/adverttarget/model/AdvertTargetVO.java=UTF-8
+encoding//src/com/im/success/adverttarget/model/AdvertTargetVO2.java=UTF-8
 encoding//src/com/im/success/dao/IAdvertOrderDAO.java=UTF-8
 encoding//src/com/im/success/test/AdvertTargetTest.java=UTF-8
